@@ -226,4 +226,5 @@ body.overlay {
 
 .loading {
     max-height: 1em;
+    margin: .102em 0;
 }

@@ -38,12 +38,12 @@ class SingleRider extends BigscreenTemplate {
         
             const judgeSectionMarks = results.querySelectorAll(`.results-table .section-marks:not(.tot) .mark:nth-child(${judge})`);
 
-            console.log(sectionMarks, judgeSectionMarks);
-
             if (judgeSectionMarks.length < sectionMarks.length) {
                 reject("You passed in too many section marks!");
+                return;
             } else if (judgeSectionMarks.length > sectionMarks.length) {
                 reject("You passed in too few section marks");
+                return;
             }
             
             judgeSectionMarks.forEach((element, i) => {
@@ -90,7 +90,6 @@ class SingleRider extends BigscreenTemplate {
             if (isNaN(mark)) {
                 finalMark.innerText = mark;
             } else {
-                console.log(mark);
                 finalMark.innerText = mark.toFixed(this.finalMarkRounding);
             }
         
