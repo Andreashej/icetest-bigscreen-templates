@@ -1,0 +1,35 @@
+@keyframes fly-in-left {
+    0% {
+        transform: translateX(-110%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fly-in-right {
+    0% {
+        transform: translateX(110%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fly-out-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-110%);
+    }
+}
+
+@keyframes fly-out-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(110%);
+    }
+}
