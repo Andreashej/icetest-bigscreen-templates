@@ -46,7 +46,7 @@ body.overlay {
     animation: fly-in-left 500ms ease-out forwards;
 }
 
-.info.removing {
+.info.cleared {
     animation: fly-out-left 500ms ease-out forwards;
 }
 
@@ -124,7 +124,7 @@ body.overlay {
     animation: fly-in-right 500ms ease-out 500ms forwards;
 }
 
-.results.removing {
+.results.cleared {
     animation: fly-out-right 500ms ease-out forwards;
 }
 
