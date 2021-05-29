@@ -1,18 +1,15 @@
 const template = new SingleRider();
 
-document.addEventListener("DOMContentLoaded", () => {
+const test = async () => {
+    await template.nextRider("Marie-Louise Skjønnemand", "Kilja fra Kjarri", "red");
+
+    const marks = [6.0, 6.5, 5.5, 6.0, 5.5];
     
-    template.nextRider("Marie-Louise Skjønnemand", "Kilja fra Kjarri", "red");
-    
-    for (let i = 1; i < 6; i++) {
-        console.log(i);
-        setTimeout(() => {
-            template.addJudgeMarks([5.5,6.0,6.0,"R",6.5], 6.0, i);
-        }, i * 1000);
+    for (const [i, mark] of marks.entries()) {
+        template.addJudgeMarks([4.5,5,5.5,6.0,5], mark, i + 1);
     }
 
-    setTimeout(() => {
-        template.addFinalMark(6.0);
-    }, 6000)
+    await template.addFinalMark(7.07);
+}
 
-});
+document.addEventListener("DOMContentLoaded", test);

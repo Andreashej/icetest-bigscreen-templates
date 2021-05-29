@@ -1,6 +1,6 @@
 @keyframes fly-in-left {
     0% {
-        transform: translateX(-110%);
+        transform: translateX(-120%);
     }
     100% {
         transform: translateX(0);
@@ -9,7 +9,7 @@
 
 @keyframes fly-in-right {
     0% {
-        transform: translateX(110%);
+        transform: translateX(120%);
     }
     100% {
         transform: translateX(0);
@@ -21,7 +21,7 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-110%);
+        transform: translateX(-120%);
     }
 }
 
@@ -30,6 +30,6 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(110%);
+        transform: translateX(120%);
     }
 }

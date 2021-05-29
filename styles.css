@@ -146,6 +146,10 @@ body.overlay {
     width: 2.2em;
 }
 
+.results-table .row .col.mark.time::after {
+    content: "\"";
+}
+
 .results .section-names {
     margin-right: var(--row-margin)
 }
@@ -204,6 +208,11 @@ body.overlay {
 .card.blue {
     background-color: rgba(0,0,255,1);
 }
+
+.card.white {
+    background-color: white;
+}
+
 .logo {
     height: 5vmax;
     position: absolute;

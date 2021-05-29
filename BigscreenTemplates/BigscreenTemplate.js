@@ -11,10 +11,13 @@ const createCard = (type) => {
             return "<div class='card yellow'></div>";
         case "B":
             return "<div class='card blue'></div>";
+        case "W":
+            return "<div class='card white'></div>";
     }
 }
 
 class BigscreenTemplate {
+    
     clearScreen = async () => {
         clearTimeout(this.timer);
         const elementsToRemove = document.querySelectorAll(".clear:not(.cleared)");

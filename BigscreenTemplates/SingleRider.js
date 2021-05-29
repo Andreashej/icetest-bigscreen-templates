@@ -1,9 +1,10 @@
 class SingleRider extends BigscreenTemplate {
     timer;
 
-    constructor(autoProgressTime = 30000) {
+    constructor(finalMarkRounding = 2, autoProgressTime = 30000) {
         super();
         this.autoProgressTime = autoProgressTime;
+        this.finalMarkRounding = finalMarkRounding;
     }
     
     nextRider = async (riderName, horseName, color) => {
@@ -32,51 +33,80 @@ class SingleRider extends BigscreenTemplate {
     }
     
     addJudgeMarks = async (sectionMarks, total, judge) => {
-        const results = document.querySelector("#riderResults");
-    
-        const judgeSectionMarks = results.querySelectorAll(`.results-table .section-marks:not(.tot) .mark:nth-child(${judge})`);
-        
-        judgeSectionMarks.forEach((element, i) => {
-            const sectionMark = sectionMarks[i];
-            if (isNaN(sectionMark)) {
-                let mark = null;
-                const card = createCard(sectionMark[0]);
-                if (sectionMark.length > 1) {
-                    mark = parseFloat(sectionMark.slice(1, 4)).toFixed(1);
-                }
-    
-                element.innerHTML = (mark ? mark : "") + card;
-            } else {
-                element.innerText = sectionMark.toFixed(1);
-            }
-        })
-        const totalElement = results.querySelector(`.results-table .section-marks.tot .mark:nth-child(${judge})`);
-    
-        if (isNaN(total)) {
-            totalElement.innerHTML = createCard(total);
-        } else {
-            totalElement.innerText = total.toFixed(1);
-        }
-    
-        results.classList.remove("cleared");
-    
         return new Promise((resolve, reject) => {
-            results.addEventListener("animationend", () => {
+            const results = document.querySelector("#riderResults");
+        
+            const judgeSectionMarks = results.querySelectorAll(`.results-table .section-marks:not(.tot) .mark:nth-child(${judge})`);
+
+            console.log(sectionMarks, judgeSectionMarks);
+
+            if (judgeSectionMarks.length < sectionMarks.length) {
+                reject("You passed in too many section marks!");
+            } else if (judgeSectionMarks.length > sectionMarks.length) {
+                reject("You passed in too few section marks");
+            }
+            
+            judgeSectionMarks.forEach((element, i) => {
+                const sectionMark = sectionMarks[i];
+                if (isNaN(sectionMark)) {
+                    let mark = null;
+                    const card = createCard(sectionMark[0]);
+                    if (sectionMark.length > 1) {
+                        mark = parseFloat(sectionMark.slice(1, 4)).toFixed(this.finalMarkRounding - 1);
+                    }
+        
+                    element.innerHTML = (mark ? mark : "") + card;
+                } else {
+                    element.innerText = sectionMark.toFixed(1);
+                }
+            });
+
+            const totalElement = results.querySelector(`.results-table .section-marks.tot .mark:nth-child(${judge})`);
+        
+            if (isNaN(total)) {
+                totalElement.innerHTML = createCard(total);
+            } else {
+                totalElement.innerText = total.toFixed(this.finalMarkRounding - 1);
+            }
+
+            if (results.classList.contains("cleared")) {
+                results.classList.remove("cleared");
+        
+            
+                results.addEventListener("animationend", () => {
+                    resolve("Results are on screen");
+                }, { once: true })
+            } else {
                 resolve("Results are on screen");
-            }, { once: true })
+            }
+        
         })
     
     }
     
     addFinalMark = async (mark) => {
-        const finalMark = document.querySelector("#riderResults .final-mark.tot")
-        if (isNaN(mark)) {
-            finalMark.innerText = mark;
-        } else {
-            finalMark.innerText = mark.toFixed(1);
-        }
+        return new Promise((resolve, reject) => {
+            const finalMark = document.querySelector("#riderResults .final-mark.tot")
+            if (isNaN(mark)) {
+                finalMark.innerText = mark;
+            } else {
+                console.log(mark);
+                finalMark.innerText = mark.toFixed(this.finalMarkRounding);
+            }
+        
+            this.timer = setTimeout(this.clearScreen, this.autoProgressTime);
+
+            const results = document.getElementById("riderResults");
+            if (results.classList.contains("cleared")) {
+                results.classList.remove("cleared");
     
-        this.timer = setTimeout(this.clearScreen, this.autoProgressTime);
+                results.addEventListener("animationend", () => {
+                    resolve("Final mark is on screen");
+                }, { once: true })
+            } else {
+                resolve("Final mark is on screen");
+            }
+        })
     }
 
 }
