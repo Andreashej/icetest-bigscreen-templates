@@ -7,7 +7,7 @@ class SingleRider extends BigscreenTemplate {
         this.finalMarkRounding = finalMarkRounding;
     }
     
-    nextRider = async (riderName, horseName, color) => {
+    nextRider = async (riderName, horseName, color = 'red') => {
         const done = await this.clearScreen();
     
         const riderInfo = document.getElementById("riderInfo");
