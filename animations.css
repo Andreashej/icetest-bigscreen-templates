@@ -1,35 +1,79 @@
 @keyframes fly-in-left {
     0% {
-        transform: translateX(-120%);
+        transform: translateX(0%) scaleX(0);
     }
     100% {
-        transform: translateX(0);
+        transform: translateX(0) scaleX(1);
     }
 }
 
 @keyframes fly-in-right {
     0% {
-        transform: translateX(120%);
+        transform: translateX(120%) scaleX(0);
     }
     100% {
-        transform: translateX(0);
+        transform: translateX(0) scaleX(1);
     }
 }
 
 @keyframes fly-out-left {
     0% {
-        transform: translateX(0);
+        transform: translateX(0) scaleX(1);
     }
     100% {
-        transform: translateX(-120%);
+        transform: translateX(0%) scaleX(0);
     }
 }
 
 @keyframes fly-out-right {
     0% {
-        transform: translateX(0);
+        transform: translateX(0) scaleX(1);
     }
     100% {
-        transform: translateX(120%);
+        transform: translateX(120%) scaleX(0);
+    }
+}
+
+@keyframes fade-out-up {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in-up {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out-down {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in-down {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
     }
 }

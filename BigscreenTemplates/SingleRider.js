@@ -2,18 +2,21 @@ class SingleRider extends BigscreenTemplate {
     timer;
 
     constructor(finalMarkRounding = 2, autoProgressTime = 30000) {
-        super();
+        super(finalMarkRounding);
         this.autoProgressTime = autoProgressTime;
-        this.finalMarkRounding = finalMarkRounding;
     }
+
+    nextRider = async (riderName, horseName, color = 'red', groupIndex = "", clear = true) => {
+        if (clear) {
+            const done = await this.clearScreen();
+        }
     
-    nextRider = async (riderName, horseName, color = 'red') => {
-        const done = await this.clearScreen();
-    
-        const riderInfo = document.getElementById("riderInfo");
+        const riderInfo = document.getElementById("riderInfo" + groupIndex);
     
         riderInfo.querySelector(".rider").innerText = riderName;
-        riderInfo.querySelector(".horse").innerText = horseName;
+        const horseLine = riderInfo.querySelector(".horse")
+        horseLine.innerText = horseName;
+
         const colorElement = riderInfo.querySelector(".color-wrapper")
         colorElement.classList.remove(colorList)
         colorElement.classList.add(color);
@@ -48,26 +51,13 @@ class SingleRider extends BigscreenTemplate {
             
             judgeSectionMarks.forEach((element, i) => {
                 const sectionMark = sectionMarks[i];
-                if (isNaN(sectionMark)) {
-                    let mark = null;
-                    const card = createCard(sectionMark[0]);
-                    if (sectionMark.length > 1) {
-                        mark = parseFloat(sectionMark.slice(1, 4)).toFixed(this.finalMarkRounding - 1);
-                    }
-        
-                    element.innerHTML = (mark ? mark : "") + card;
-                } else {
-                    element.innerText = sectionMark.toFixed(1);
-                }
+                
+                element.innerHTML = this.parseMark(sectionMark);
             });
 
             const totalElement = results.querySelector(`.results-table .section-marks.tot .mark:nth-child(${judge})`);
-        
-            if (isNaN(total)) {
-                totalElement.innerHTML = createCard(total);
-            } else {
-                totalElement.innerText = total.toFixed(this.finalMarkRounding - 1);
-            }
+
+            totalElement.innerHTML = this.parseMark(total);
 
             if (results.classList.contains("cleared")) {
                 results.classList.remove("cleared");

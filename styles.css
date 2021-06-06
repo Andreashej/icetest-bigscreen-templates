@@ -10,7 +10,7 @@ html {
     overflow: hidden;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-    font-size: 3vh;
+    font-size: 2.5vh;
     height: 100%;
     width: 100%;
     margin: 0;
@@ -35,15 +35,22 @@ body.overlay {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .info {
     color: white;
-    width: 33%;
+    width: 30%;
     border-radius: 0 .5rem .5rem .5rem;
     overflow: hidden;
     transform: translateX(-110%);
     animation: fly-in-left 500ms ease-out forwards;
+    transform-origin: top left;
+    margin-top: .5em;
+}
+
+.container.vertical .info:not(:last-child) {
+    margin-bottom: .5em;
 }
 
 .info.cleared {
@@ -62,8 +69,64 @@ body.overlay {
     text-overflow: ellipsis;
 }
 
-.line.horse {
+.line > span {
+    display: block;
+}
+
+.line span.fade-down.show {
+    animation: fade-in-down 500ms ease-out forwards;
+}
+
+.line span.fade-down.hide {
+    animation: fade-out-up 500ms ease-out forwards;
+}
+
+.line span.fade-up.show {
+    animation: fade-in-up 500ms ease-out forwards;
+}
+
+.line span.fade-up.hide {
+    animation: fade-out-down 500ms ease-out forwards;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.line span.fade-up.hidden {
+    transform: translateY(100%);
+}
+
+.line span.fade-down.hidden {
+    transform: translateY(-100%);
+}
+
+.line.secondary {
     font-size: 80%;
+}
+
+.line .left {
+    display: flex;
+}
+
+.line .marks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.line .marks .mark {
+    display: flex;
+    width: 2.2em;
+    justify-content: center;
+    align-items: center;
+}
+
+.line .marks .final-mark {
+    text-align: right;
+}
+
+.line .marks .loading {
+    margin: -0.1em 0;
 }
 
 .color-wrapper {

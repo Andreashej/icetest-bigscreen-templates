@@ -17,8 +17,12 @@ const createCard = (type) => {
 }
 
 class BigscreenTemplate {
+
+    constructor(finalMarkRounding = 2) {
+        this.finalMarkRounding = finalMarkRounding;
+    }
     
-    clearScreen = async () => {
+    async clearScreen() {
         clearTimeout(this.timer);
         const elementsToRemove = document.querySelectorAll(".clear:not(.cleared)");
         
@@ -31,7 +35,7 @@ class BigscreenTemplate {
                 if (elementsToRemove.length > 0) {
                     elementsToRemove.forEach(element => {
                         element.addEventListener("animationend", (e) => {
-                            element.querySelectorAll(".results-table .mark, .final-mark.tot").forEach(element => {
+                            element.querySelectorAll(".mark, .final-mark.tot").forEach(element => {
                                 element.innerHTML = loadingIcon;
                             });
         
@@ -45,5 +49,19 @@ class BigscreenTemplate {
                 reject(error);
             }
         })
+    }
+
+    parseMark = (mark) => {
+        if (isNaN(mark)) {
+            let markText = null;
+            const card = createCard(mark[0]);
+            if (mark.length > 1) {
+                markText = parseFloat(mark.slice(1, 4)).toFixed(this.finalMarkRounding - 1);
+            }
+
+            return (markText ? markText : "") + card;
+        }
+        
+        return mark.toFixed(this.finalMarkRounding - 1);
     }
 }

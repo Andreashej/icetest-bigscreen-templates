@@ -58,3 +58,18 @@ The screen can be cleared manually at any time by calling
 
 `template.clearScreen()`
 
+## Group test and finals
+
+The group test template has the same functions as the single-rider output, and supports both grouptests and finals. It is initialised from another class:
+
+`const template = new Group()`
+
+It has an additional function:
+
+`template.nextGroup(riders: Array<{ name: string, horse: string, color: string }>)`
+
+This template does not support section marks, so when calling `addJudgeMarks()`, the first parameter must always be an empty array. It takes an additional parameter, section, which can be passed for finals, to display the section name.
+
+To reset the marks for a section and display the horse name again, call
+
+`template.resetMarks()`
