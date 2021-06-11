@@ -2,6 +2,8 @@
 
 This repository contains templates, styling and scripts for handling output to a screen or livestream in Icetest.
 
+All functions are promise-based, so it is possible to use .then or async/await to listen for animations to end.
+
 ## Single rider output
 
 To interact with the template, make an instance of the class SingleRider in the Javascript:
@@ -73,3 +75,19 @@ This template does not support section marks, so when calling `addJudgeMarks()`,
 To reset the marks for a section and display the horse name again, call
 
 `template.resetMarks()`
+
+## Start lists and result lists
+
+Startlists and result lists must be built according to the templates. They use the class Fullscreen, which has some additional methods. By default, it will automatically flip through the pages every 10 seconds.
+
+It is initialised the following way:
+
+`const template = new Fullscreen(finalMarkRounding: number, autoProgressTime: number, autoProgress: boolean)`
+
+By default it automatically progresses, but it can be disabled, and progressing can be handled manually by calling:
+
+`template.nextPage()`
+
+When the template is no longer used, it must be destroyed to remove all interval timers, that will interfere if a new object is instatiated at a later point. Calling destroy will also clear the screen.
+
+`template.destroy()`

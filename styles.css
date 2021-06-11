@@ -4,6 +4,9 @@
 
 :root {
     --background-color: #0f4c75;
+    --dark-accent: #186da5;
+    --accent: #1c89d1;
+    --border-radius-card: .5rem;
 }
 
 html {
@@ -24,6 +27,10 @@ body {
     height: calc(100% - var(--body-padding) * 2)
 }
 
+h1, p {
+    margin: 0;
+}
+
 body.overlay {
     background-color: turquoise;
     display: flex;
@@ -36,6 +43,165 @@ body.overlay {
     justify-content: space-between;
     align-items: flex-end;
     flex-wrap: wrap;
+}
+
+.container.fullscreen {
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.card {
+    border-radius: 0 var(--border-radius-card) var(--border-radius-card) var(--border-radius-card);
+    color: white;
+    overflow: hidden;
+    width: 80%;
+    height: 100%;
+    animation: fly-in-top 500ms ease-out forwards;
+}
+
+.card.cleared {
+    animation: fly-out-top 500ms ease-in forwards;
+}
+
+.card .line {
+    background-color: var(--background-color);
+    padding: .5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.card .line:last-child, .card .group:last-child {
+    border-radius: 0 0 .5rem .5rem;
+}
+
+.card .group .line:last-child {
+    border-radius: 0;
+}
+
+.card .line:not(:first-child), .card .group {
+    margin-top: .1rem;
+}
+
+.card .line:nth-child(odd) {
+    background-color: var(--dark-accent);
+}
+
+.card .group .line {
+    background-color: var(--background-color);
+}
+
+.card .group:nth-child(odd) .line {
+    background-color: var(--dark-accent);
+}
+
+.card .accent {
+    display: block;
+    content: "";
+    width: 100%;
+    height: var(--border-radius-card);
+    background-color: white;
+    background-image:linear-gradient(to bottom right, var(--accent), #1c89d1cc);
+    margin-bottom: .1rem;
+}
+
+.card .line:not(.header) {
+    transform: translateY(100vh);
+}
+
+.card .group.hide, .card .line:not(.header).hide {
+    transform: translateY(0);
+}
+
+.card .group .line {
+    border-left: 1rem var(--color) solid;
+}
+
+.card .line:not(.header):nth-child(9n + 3), .card .group:nth-child(3n + 3) .line:nth-child(1) {
+    --animation-delay-in: 100ms;
+    --animation-delay-out: 1000ms;
+}
+
+.card .line:not(.header):nth-child(9n + 4), .card .group:nth-child(3n + 3) .line:nth-child(2) {
+    --animation-delay-in: 200ms;
+    --animation-delay-out: 900ms;
+}
+
+.card .line:not(.header):nth-child(9n + 5), .card .group:nth-child(3n + 3) .line:nth-child(3) {
+    --animation-delay-in: 300ms;
+    --animation-delay-out: 800ms;
+}
+
+.card .line:not(.header):nth-child(9n + 6), .card .group:nth-child(3n + 4) .line:nth-child(1) {
+    --animation-delay-in: 400ms;
+    --animation-delay-out: 700ms;
+}
+
+.card .line:not(.header):nth-child(9n + 7), .card .group:nth-child(3n + 4) .line:nth-child(2) {
+    --animation-delay-in: 500ms;
+    --animation-delay-out: 600ms;
+}
+
+.card .line:not(.header):nth-child(9n + 8), .card .group:nth-child(3n + 4) .line:nth-child(3) {
+    --animation-delay-in: 600ms;
+    --animation-delay-out: 500ms;
+}
+
+.card .line:not(.header):nth-child(9n + 8), .card .group:nth-child(3n + 5) .line:nth-child(1) {
+    --animation-delay-in: 700ms;
+    --animation-delay-out: 400ms;
+}
+
+.card .line:not(.header):nth-child(9n + 9), .card .group:nth-child(3n + 5) .line:nth-child(2) {
+    --animation-delay-in: 800ms;
+    --animation-delay-out: 300ms;
+}
+
+.card .line:not(.header):nth-child(9n + 10), .card .group:nth-child(3n + 5) .line:nth-child(3) {
+    --animation-delay-in: 900ms;
+    --animation-delay-out: 200ms;
+}
+
+.card .line:not(.header):nth-child(9n + 11) {
+    --animation-delay-in: 1000ms;
+    --animation-delay-out: 100ms;
+}
+
+.card .line:not(.header) {
+    animation: fly-in-bottom 500ms ease-out forwards var(--animation-delay-in);
+}
+
+.card .line:not(.header).hide {
+    animation: fly-out-bottom 500ms ease-in forwards var(--animation-delay-out);
+}
+
+.position {
+    float: left;
+    font-size: 2rem;
+    min-width: 1.5em;
+    margin-right: .5rem;
+}
+
+.line .riderinfo {
+    flex: 3
+}
+
+.line .agegroup {
+    flex: 1
+}
+
+.line .scope {
+    width: 4em;
+}
+
+.line .mark {
+    font-size: 2rem;
+    text-align: right;
+    margin-left: 1em;
+}
+
+.line > *:last-child {
+    text-align: right;
 }
 
 .info {
@@ -62,6 +228,7 @@ body.overlay {
 }
 
 .line {
+    flex: 1;
     background-color: var(--background-color);
     padding: .25em .5rem;
     white-space: nowrap;
@@ -299,4 +466,12 @@ body.overlay {
 .loading {
     max-height: 1em;
     margin: .102em 0;
+}
+
+.card .logo {
+    position: relative;
+    top: unset;
+    right: unset;
+    height: unset;
+    background-position: center right;
 }

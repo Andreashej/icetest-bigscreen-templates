@@ -50,8 +50,8 @@ const group = [
         color: "purple"
     },
 ]
-const template = new Group();
 const testGroup = async () => {
+    const template = new Group();
 
     await template.nextGroup(group);
 
@@ -70,4 +70,21 @@ const testGroup = async () => {
     }
 }
 
-document.addEventListener("DOMContentLoaded", testGroup);
+const template = new Fullscreen(2, 0, false);
+const testFullscreen = async () => {
+
+    // await template.showLines(0,8);
+
+    // console.log("finished showing");
+
+    // setTimeout(() => {
+    //     template.hideLines().then(() => {
+    //         template.showLines(9, 17).then(() => {
+    //             console.log("finished");
+    //         });
+    //     });
+    // }, 1000)
+
+}
+
+document.addEventListener("DOMContentLoaded", testFullscreen);
