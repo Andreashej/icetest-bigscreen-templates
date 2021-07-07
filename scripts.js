@@ -1,3 +1,43 @@
+var client = Stomp.client('xxx');
+client.heartbeat.outgoing = 30000; // client will send heartbeats every 30000ms
+client.heartbeat.incoming = 30000;
+client.debug = function(msg) {};
+var on_connect = function(x) {
+    id = client.subscribe("/exchange/ticker", function(d) {
+      onMessage(d);
+      var objPushedRaw2 = JSON.parse( d.body );
+        console.log(objPushedRaw2);
+    });
+  };
+  
+var on_error =  function() {
+    console.log('error');
+};
+  
+client.connect('yyy', 'zzz', on_connect, on_error, 'southpole');
+
+// Process the message
+async function onMessage(evt) {
+    var objPushedRaw = JSON.parse( evt.body );
+  
+    if (objPushedRaw.MESSAGE.TYPE != "videowall") {
+        return;
+      }
+
+    var objPushed = (typeof objPushedRaw.MESSAGE == 'string') ? JSON.parse( objPushedRaw.MESSAGE ) : objPushedRaw.MESSAGE;
+    console.log(objPushed);
+
+    // sample for MESSAGE.TEMPLATE = "riderinfo":
+    const template = new SingleRider();
+    await template.nextRider(objPushed.DATA.RIDER, objPushed.DATA.HORSE, objPushed.DATA.COLOR);
+    var empty = [];
+    await template.addJudgeMarks(empty, 5.5, 1);
+    await template.addFinalMark(5.77);
+    
+  
+    timeout = 250; // reset the timeout to a short value in case we lose the connection.
+    delay = Math.floor(Math.random() * Math.floor(3000));    
+}
 
 const testSingle = async () => {
     const template = new SingleRider();
